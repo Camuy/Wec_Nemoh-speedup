@@ -1,0 +1,10 @@
+import library.inizialise as inizialise
+
+def main():
+    inizialise()
+    mod_mesh()
+    Nemoh()
+    postProc()
+
+if __name__ == "__main__":
+    main()
