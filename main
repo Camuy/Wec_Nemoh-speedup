@@ -15,19 +15,20 @@ def main():
         except FileExistsError:
             print(f'''The folder "{path}" existed yet!\n''')
 
-    init.inizialise_project(path)
+    init.inizialise_project(path=path)
 
-    inp = input("-!-!-!-\nChange the float.stl and spar.stl files in the folder project/Nemoh/float and project/Nemoh/spar.\nIf done press y.\nIf n is pressed the programm will exit:\n-!-!-!-").lower()
+    inp = input(f"{'-'*100}\nChange the Nfloat.stl and Nspar.stl files in the folder project/Nemoh/float and project/Nemoh/spar.\nIf done press y.\nIf n is pressed the programm will exit:\t").lower()
+    print(f'''{'-'*100}\n''')
     if inp == 'n':
+        print(f'''{'-'*100}\n''')
         exit()
     elif inp == 'y':
-        run.Nemoh()
+        run.init_mesh(path=path)
+    
+    run.Nemoh(path=path)
 
-    #mod_mesh()
+    print('Ready to solve WecSim.')
 
-    #Nemoh()
-
-    #postProc()
 
 if __name__ == "__main__":
     main()
