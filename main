@@ -1,10 +1,33 @@
-import library.inizialise as inizialise
+import sys
+import os
+
+import library.initialise as init
+import library.run as run
 
 def main():
-    inizialise()
-    mod_mesh()
-    Nemoh()
-    postProc()
+
+    if len(sys.argv) > 1:
+        path = sys.argv[1]
+    else:
+        try:
+            path = os.path.join(os.getcwd(), 'simulation')
+            os.mkdir(path)
+        except FileExistsError:
+            print(f'''The folder "{path}" existed yet!\n''')
+
+    init.inizialise_project(path)
+
+    inp = input("-!-!-!-\nChange the float.stl and spar.stl files in the folder project/Nemoh/float and project/Nemoh/spar.\nIf done press y.\nIf n is pressed the programm will exit:\n-!-!-!-").lower()
+    if inp == 'n':
+        exit()
+    elif inp == 'y':
+        run.Nemoh()
+
+    #mod_mesh()
+
+    #Nemoh()
+
+    #postProc()
 
 if __name__ == "__main__":
     main()
