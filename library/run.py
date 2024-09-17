@@ -9,23 +9,28 @@ def init_mesh(path):
     # modificare il file Mesh.cal !!!!
     # modificare il file .nem e .dat per entrambi i corpi
     # modificare i file Nemoh.cal per i due corpi e per l'assembly
-
-    os.system(f'''./mesh  {path}/Nemoh/float && ./mesh  {path}/Nemoh/spar''')
+    os.system(f'''mesh  {path}/Nemoh/float && mesh  {path}/Nemoh/spar''')
 
     shutil.copy(f'{path}/Nemoh/float/mesh/Hydrostatics.dat', f'{path}/WecSim/input_data/mesh/Hydrostatics_0.dat')
     shutil.copy(f'{path}/Nemoh/float/mesh/KH.dat', f'{path}/WecSim/input_data/mesh/KH_0.dat')
     shutil.copy(f'{path}/Nemoh/float/Nfloat.nem.dat', f'{path}/Nemoh/Nfloat.dat')
-    
     shutil.copy(f'{path}/Nemoh/spar/mesh/Hydrostatics.dat', f'{path}/WecSim/input_data/mesh/Hydrostatics_1.dat')
     shutil.copy(f'{path}/Nemoh/spar/mesh/KH.dat', f'{path}/WecSim/input_data/mesh/KH_1.dat')
-    shutil.copy(f'{path}/Nemoh/spar/Nspar.nem.dat', f'{path}/Nemoh/Nspart.dat')
+    shutil.copy(f'{path}/Nemoh/spar/Nspar.nem.dat', f'{path}/Nemoh/Nspar.dat')
     return
 
 def init_Nemoh(path):
     # Change the Nemoh.cal
     # Change the Mesh.cal
     # Once done it, preparetion is ended. Nemoh can run perfectly.
-    print(f'Nemoh has perfectly prepered.\n')
+    print(f'''\n{'-'*100}\n''')
+    inp = input(f"Change the Mesh.cal and Nemoh.cal files in the folder <project>/Nemoh.\nIf done press y.\nIf n is pressed the programm will exit:\t").lower()
+    print(f'''{'-'*100}\n''')
+    if inp == 'n':
+        print(f'''{'-'*100}\n''')
+        exit()
+    elif inp == 'y':
+        print(f'Nemoh has perfectly prepered.\n')
     return
 
 def postProc_Nemoh(path):
@@ -39,7 +44,7 @@ def Nemoh(path):
 
     # Solve only the first order equations
     
-    os.system(f'''./preProc {path}/Nemoh && ./hydrosCal {path}/Nemoh && ./solve {path}/Nemoh && ./postProc {path}/Nemoh''')
+    os.system(f'''preProc {path}/Nemoh && hydrosCal {path}/Nemoh && solver {path}/Nemoh && postProc {path}/Nemoh''')
     postProc_Nemoh(path=path)
 
     print('\nNemoh finished\n')

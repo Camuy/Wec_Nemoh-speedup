@@ -8,6 +8,10 @@ def main():
 
     if len(sys.argv) > 1:
         path = sys.argv[1]
+        try:
+            os.mkdir(path)
+        except FileExistsError:
+            print(f'''The folder "{path}" existed yet!\n''')
     else:
         try:
             path = os.path.join(os.getcwd(), 'simulation')
@@ -17,7 +21,8 @@ def main():
 
     init.inizialise_project(path=path)
 
-    inp = input(f"{'-'*100}\nChange the Nfloat.stl and Nspar.stl files in the folder project/Nemoh/float and project/Nemoh/spar.\nIf done press y.\nIf n is pressed the programm will exit:\t").lower()
+    print(f'''\n{'-'*100}\n''')
+    inp = input(f"Change the Nfloat.stl and Nspar.stl files in the folder project/Nemoh/float and project/Nemoh/spar.\nIf done press y.\nIf n is pressed the programm will exit:\t").lower()
     print(f'''{'-'*100}\n''')
     if inp == 'n':
         print(f'''{'-'*100}\n''')
